@@ -1,0 +1,22 @@
+{
+  "name": "asmap",
+  "version": "0.0.0",
+  "description": "developers can find jsp path ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/qingxiangchayun/asmap.git"
+  },
+  "keywords": [
+    "asmap"
+  ],
+  "author": "lyuan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qingxiangchayun/asmap/issues"
+  },
+  "homepage": "https://github.com/qingxiangchayun/asmap"
+}
