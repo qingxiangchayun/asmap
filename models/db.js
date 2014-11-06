@@ -2,25 +2,22 @@
 // 数据库操作
 
 var mongoose = require('mongoose');
-var db = mongoose.createConnection('192.168.3.133','test')
-
+var Schema = mongoose.Schema;
 
 db.on('error',console.error.bind(console,'error'));
 
-db.once('open',function(){
-	console.log('db connect ok');
+var asMapSchema = new Schema({
+	url : String,
+	link : String
+});
 
-	var Schema = mongoose.Schema;
+var asMapModel = db.model('asMapModel123',asMapSchema);
 
-	var asMapSchema = new Schema({
-		url : String,
-		link : String
-	});
-
-	var asMapModel = mongoose.model('asMapModel',asMapSchema);
+module.exports = {
+	asMapModel : asMapModel
+};
 
 
-	module.exports = asMapModel
 
 	
-});
+

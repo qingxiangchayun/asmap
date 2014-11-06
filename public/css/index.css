@@ -1,8 +1,15 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
 }
+
+.page-header{text-align: center;}
+
+.pagination-wrap{width: 1500px;margin: 0 auto;text-align: right;}
+.pagination-wrap .pagination{margin: 0;}
+
+.table-wrap{width: 1500px; margin: 0 auto;}
+.table-wrap thead{background: #eee;}
