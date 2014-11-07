@@ -13,8 +13,7 @@ router.get('/', function(req, res) {
 
 // get list
 router.get('/list',function(req, res){
-
-	asMapModel.find(function(err, docs){
+	asMapModel.find({ url : new RegExp(req.query.url,'g') },function(err, docs){
 		if(err){
 			res.send({
 				success : false,
@@ -60,7 +59,7 @@ router.get('/list/edit',function(req, res){
 
 	
 	if(reqQuery.id){ // eidt
-		asMapModel.where({_id : reqQuery.id}).updata(data,updataCallback);
+		asMapModel.update({_id:reqQuery.id},{ $set : data },updataCallback);
 	}else{ //add
 		asMapModel.create(data,updataCallback);
 	}
@@ -83,5 +82,6 @@ router.get('/list/delete',function(req, res){
 		}
 	});
 });
+
 
 module.exports = router;

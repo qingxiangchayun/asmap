@@ -19,4 +19,5 @@ a {
 
 .table-wrap .add-edit-tr td{padding:20px 5px;}
 
-.page-row .add-btn{margin:10px 0;padding:4px 20px;}
+.page-row .add-btn{float:left;margin:10px 0;padding:4px 20px;}
+.search-wrap{width:300px;float:right;}

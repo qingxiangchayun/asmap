@@ -4,9 +4,6 @@
 <title><%= title %></title>
 <link rel='stylesheet' href='/css/index.css' />
 <link rel='stylesheet' href='/css/bootstrap.css' />
-<script type="text/javascript" src="/js/jquery-2.1.1.js"></script>
-<script type="text/javascript" src="/js/bootstrap.js"></script>
-<script type="text/javascript" src="/js/jquery.tmpl.js"></script>
 </head>
 <body>
 
@@ -15,8 +12,17 @@
 </div>
 
 
-<div class="page-row">
+<div class="page-row clearfix">
     <button id="J_addBtn" type="button" class="btn btn-primary add-btn">新增</button>
+    <div class="search-wrap">
+        <div class="input-group">
+            <input type="text" class="form-control search-key" value="" />
+            <span class="input-group-btn">
+                <button id="J_searchBtn" class="btn btn-default" type="button">搜索</button>
+            </span>
+        </div>
+    </div>
+
 </div>
 
 <div class="table-wrap table-responsive">
@@ -25,7 +31,7 @@
     		<tr>
     			<td width="50">id</td>
     			<td width="300">url</td>
-    			<td width="300">link</td>
+    			<td width="300">devUrl</td>
     			<td width="300">jsp path</td>
     			<td width="200">date</td>
     			<td width="150">操作</td>
@@ -55,8 +61,7 @@
     </ul>
 </nav>
 
-
-<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript" data-main="js/index" src="/js/require-jquery.js"></script>
 
 </body>
 </html>

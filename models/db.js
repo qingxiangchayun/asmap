@@ -10,7 +10,7 @@ var asMapSchema = new Schema({
 	url : String,
 	devUrl : String,
 	path : String,
-	date : Date
+	date : type: Date
 });
 
 var asMapModel = db.model('asMapModel',asMapSchema);
