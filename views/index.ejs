@@ -6,6 +6,7 @@
 <link rel='stylesheet' href='/css/bootstrap.css' />
 <script type="text/javascript" src="/js/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="/js/bootstrap.js"></script>
+<script type="text/javascript" src="/js/jquery.tmpl.js"></script>
 </head>
 <body>
 
@@ -14,29 +15,23 @@
 </div>
 
 
-
+<div class="page-row">
+    <button id="J_addBtn" type="button" class="btn btn-primary add-btn">新增</button>
+</div>
 
 <div class="table-wrap table-responsive">
 	<table id="J_table" class="table table-bordered table-condensed table-hover">
     	<thead>
     		<tr>
-    			<td>id</td>
-    			<td>url</td>
-    			<td>link</td>
-    			<td>jsp path</td>
-    			<td>date</td>
-    			<td>action</td>
+    			<td width="50">id</td>
+    			<td width="300">url</td>
+    			<td width="300">link</td>
+    			<td width="300">jsp path</td>
+    			<td width="200">date</td>
+    			<td width="150">操作</td>
     		</tr>
     	</thead>
     	<tbody>
-    		<tr>
-    			<td>id</td>
-    			<td>url</td>
-    			<td>link</td>
-    			<td>jsp path</td>
-    			<td>date</td>
-    			<td>action</td>
-    		</tr>
     	</tbody>
 	</table>
 </div>

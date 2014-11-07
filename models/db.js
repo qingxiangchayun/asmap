@@ -8,10 +8,12 @@ db.on('error',console.error.bind(console,'error'));
 
 var asMapSchema = new Schema({
 	url : String,
-	link : String
+	devUrl : String,
+	path : String,
+	date : Date
 });
 
-var asMapModel = db.model('asMapModel123',asMapSchema);
+var asMapModel = db.model('asMapModel',asMapSchema);
 
 module.exports = {
 	asMapModel : asMapModel

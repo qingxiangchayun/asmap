@@ -11,16 +11,7 @@ router.get('/', function(req, res) {
 });
 
 
-/*model.create({ url : 'http://a.com', link : 'index/a.jsp'  },function(err, doc){
-	if(err){
-		return next(err);
-	}else{
-		console.log(doc);
-	}
-});*/
-
-
-// 获取列表
+// get list
 router.get('/list',function(req, res){
 
 	asMapModel.find(function(err, docs){
@@ -40,6 +31,57 @@ router.get('/list',function(req, res){
 		}
 	});
 
+});
+
+// add or edit 
+router.get('/list/edit',function(req, res){
+	var reqQuery = req.query;
+
+	var data = {
+		url : reqQuery.url,
+		devUrl : reqQuery.devUrl,
+		path : reqQuery.path,
+		date : new Date()
+	};
+
+	var updataCallback = function(err, docs){
+		if(err){
+			res.send({
+				success : false,
+				message : err
+			});
+		}else{
+			res.send({
+				success : true,
+				message : 'ok'
+			});
+		}
+	};
+
+	
+	if(reqQuery.id){ // eidt
+		asMapModel.where({_id : reqQuery.id}).updata(data,updataCallback);
+	}else{ //add
+		asMapModel.create(data,updataCallback);
+	}
+
+});
+
+// delete
+router.get('/list/delete',function(req, res){
+	asMapModel.remove({_id : req.query.id},function(err, docs){
+		if(err){
+			res.send({
+				success : false,
+				message : err
+			});
+		}else{
+			res.send({
+				success : true,
+				message : 'ok'
+			});
+		}
+	});
 });
 
 module.exports = router;

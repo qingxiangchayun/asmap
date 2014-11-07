@@ -6,10 +6,17 @@ a {
   color: #00B7FF;
 }
 
+.page-row{width: 1300px;margin: 0 auto;}
+
 .page-header{text-align: center;}
 
-.pagination-wrap{width: 1500px;margin: 0 auto;text-align: right;}
+.pagination-wrap{width: 1300px;margin: 0 auto;text-align: right;}
 .pagination-wrap .pagination{margin: 0;}
 
-.table-wrap{width: 1500px; margin: 0 auto;}
+.table-wrap{width: 1300px; margin: 0 auto;text-align: center; word-break:break-all;word-wrap:break-word;}
 .table-wrap thead{background: #eee;}
+.table-wrap .action a{padding:0 10px;}
+
+.table-wrap .add-edit-tr td{padding:20px 5px;}
+
+.page-row .add-btn{margin:10px 0;padding:4px 20px;}
