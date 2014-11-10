@@ -14,18 +14,24 @@ router.get('/', function(req, res) {
 // get list
 router.get('/list',function(req, res){
 	asMapModel.find({ url : new RegExp(req.query.url,'g') },function(err, docs){
+		
+
 		if(err){
 			res.send({
 				success : false,
 				message : err
 			});
 		}else{
-			res.send({
-				success : true,
-				message : 'ok',
-				result : {
-					list : docs
-				}
+			asMapModel.count(function(err, count){
+
+				res.send({
+					success : true,
+					message : 'ok',
+					totalCount : count,
+					result : {
+						list : docs
+					}
+				});
 			});
 		}
 	});

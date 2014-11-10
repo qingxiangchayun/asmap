@@ -9,8 +9,8 @@ db.on('error',console.error.bind(console,'error'));
 var asMapSchema = new Schema({
 	url : String,
 	devUrl : String,
-	path : String,
-	date : type: Date
+	path : String ,
+	date : Date
 });
 
 var asMapModel = db.model('asMapModel',asMapSchema);
