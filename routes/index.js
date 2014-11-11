@@ -1,13 +1,55 @@
 var express = require('express');
 var router = express.Router();
 
+var crypto = require('crypto');
+var md5 = crypto.createHash('md5');
+
 var model = require('../models/db');
 
 var asMapModel = model.asMapModel;
+var asUserModel = model.asUserModel;
 
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('index', { title: 'Express' });
+});
+
+function handSendError(err){
+	res.send({
+		success : false,
+		message : err
+	});
+}
+
+router.get('/login',function(req, res){
+	res.render('login', { title: 'login' });
+});
+
+router.post('/ajaxlogin',function(req, res){
+	var reqData = req.body;
+
+	md5.update(reqData.password);
+
+	var md5password = md5.digest('hex');
+	
+	asUserModel.find({username : reqData.username },function(err, docs){
+		if(err){
+			handSendError(err);
+		}else{
+			if(docs && docs[0] && docs[0].password == md5password){
+				res.send({
+					success : true,
+					message : 'ok'
+				});
+			}else{
+				res.send({
+					success : false,
+					message : '用户名密码错误'
+				});
+			}
+		}
+	});
+
 });
 
 
@@ -17,10 +59,7 @@ router.get('/list',function(req, res){
 		
 
 		if(err){
-			res.send({
-				success : false,
-				message : err
-			});
+			handSendError(err);
 		}else{
 			asMapModel.count(function(err, count){
 

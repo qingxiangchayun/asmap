@@ -13,10 +13,17 @@ var asMapSchema = new Schema({
 	date : Date
 });
 
+var asUserShema = new Schema({
+	username : String,
+	password : String
+});
+
 var asMapModel = db.model('asMapModel',asMapSchema);
+var asUserModel = db.model('asUserModel',asUserShema);
 
 module.exports = {
-	asMapModel : asMapModel
+	asMapModel : asMapModel,
+	asUserModel : asUserModel
 };
 
 
