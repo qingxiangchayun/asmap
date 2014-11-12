@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 
 var crypto = require('crypto');
-var md5 = crypto.createHash('md5');
 
 var model = require('../models/db');
 
@@ -11,7 +10,10 @@ var asUserModel = model.asUserModel;
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
+  	res.render('index', {
+  		title: 'Express' 
+  		//username : req.cookie.username
+  	});
 });
 
 function handSendError(err){
@@ -28,19 +30,22 @@ router.get('/login',function(req, res){
 router.post('/ajaxlogin',function(req, res){
 	var reqData = req.body;
 
-	md5.update(reqData.password);
-
-	var md5password = md5.digest('hex');
-	
 	asUserModel.find({username : reqData.username },function(err, docs){
 		if(err){
 			handSendError(err);
 		}else{
-			if(docs && docs[0] && docs[0].password == md5password){
+			if(docs && docs[0] && docs[0].password == reqData.password){
+				// write cookie
+				var md5 = crypto.createHash('md5');
+				
+				var cookie_asLoginAuth = md5.update( reqData.username + Date.now() ).digest('hex');
+				res.cookie('loginAuth',cookie_asLoginAuth, { expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000) , path : '/' });
+
 				res.send({
 					success : true,
 					message : 'ok'
 				});
+
 			}else{
 				res.send({
 					success : false,
