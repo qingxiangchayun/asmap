@@ -13,8 +13,8 @@ router.get('/', checkLogin);
 /* GET home page. */
 router.get('/', function(req, res) {
   	res.render('index', {
-  		title: 'Express' 
-  		//username : req.cookies.username
+  		title: 'Express', 
+  		username : req.cookies.user
   	});
 });
 
