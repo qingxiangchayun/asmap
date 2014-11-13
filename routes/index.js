@@ -8,6 +8,8 @@ var model = require('../models/db');
 var asMapModel = model.asMapModel;
 var asUserModel = model.asUserModel;
 
+router.get('/', checkLogin);
+
 /* GET home page. */
 router.get('/', function(req, res) {
   	res.render('index', {
@@ -31,14 +33,24 @@ function checkLogin(req, res ,next){
 			if(err){
 				handSendError(err);
 			}else if(docs && docs[0] && docs[0].token === req.cookies.token){
-				res.redirect('/');
+				if(req.path !== '/'){
+					res.redirect('/');
+				}else{
+					next();
+				}
 			}else{
-				next();
+				if(req.path !== '/login'){
+					res.redirect('/login')	
+				}else{
+					next();
+				}
 			}
 		});
 
-	}else{
+	}else if(req.path == '/reg' || req.path == '/login' ){
 		next();
+	}else{
+		res.redirect('login');
 	}
 }
 
