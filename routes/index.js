@@ -12,7 +12,7 @@ var asUserModel = model.asUserModel;
 router.get('/', function(req, res) {
   	res.render('index', {
   		title: 'Express' 
-  		//username : req.cookie.username
+  		//username : req.cookies.username
   	});
 });
 
@@ -22,6 +22,27 @@ function handSendError(err){
 		message : err
 	});
 }
+
+function checkLogin(req, res ,next){
+	var result = false;
+
+	if(req.cookies.user){
+		asUserModel.find({username : req.cookies.user} ,function(err, docs){
+			if(err){
+				handSendError(err);
+			}else if(docs && docs[0] && docs[0].token === req.cookies.token){
+				res.redirect('/');
+			}else{
+				next();
+			}
+		});
+
+	}else{
+		next();
+	}
+}
+
+router.get('/login',checkLogin);
 
 router.get('/login',function(req, res){
 	res.render('login', { title: 'login' });
@@ -34,12 +55,22 @@ router.post('/ajaxlogin',function(req, res){
 		if(err){
 			handSendError(err);
 		}else{
-			if(docs && docs[0] && docs[0].password == reqData.password){
+			if(docs && docs[0] && docs[0].password === reqData.password){
 				// write cookie
 				var md5 = crypto.createHash('md5');
 				
-				var cookie_asLoginAuth = md5.update( reqData.username + Date.now() ).digest('hex');
-				res.cookie('loginAuth',cookie_asLoginAuth, { expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000) , path : '/' });
+				var cookie_asLoginToken = md5.update( reqData.username + Date.now() ).digest('hex');
+
+				var expiresTime = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
+
+				res.cookie('token',cookie_asLoginToken, { expires: expiresTime , path : '/' });
+				res.cookie('user',reqData.username, { expires: expiresTime , path : '/' });
+
+				asUserModel.update({username : reqData.username}, { $set : { token : cookie_asLoginToken } },function(err, docs){
+					if(err){
+						handSendError(err);
+					}
+				});
 
 				res.send({
 					success : true,
@@ -55,6 +86,45 @@ router.post('/ajaxlogin',function(req, res){
 		}
 	});
 
+});
+
+router.get('/reg',function(req, res){
+	res.render('reg',{
+		title : 'reg'
+	});
+});
+
+router.post('/ajaxreg',function(req, res){
+	asUserModel.find({username : req.body.username}, function(err, docs){
+		var md5 = crypto.createHash('md5');
+		var cookie_asLoginToken = md5.update( req.body.username + Date.now() ).digest('hex');
+
+		if(err){
+			handSendError(err);
+		}else{
+			if(docs && docs[0]){
+				res.send({
+					success : false,
+					message : '用户名已经存在'
+				});
+			}else{
+				asUserModel.create({
+					username : req.body.username,
+					password : req.body.password,
+					token : cookie_asLoginToken
+				},function(err, docs){
+					if(err){
+						handSendError(err);
+					}else{
+						res.send({
+							success : true,
+							message : 'ok'
+						});
+					}
+				});
+			}
+		}
+	});
 });
 
 

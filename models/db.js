@@ -15,7 +15,8 @@ var asMapSchema = new Schema({
 
 var asUserShema = new Schema({
 	username : String,
-	password : String
+	password : String,
+	token : String
 });
 
 var asMapModel = db.model('asMapModel',asMapSchema);
