@@ -14,9 +14,13 @@ router.get('/', checkLogin);
 router.get('/', function(req, res) {
   	res.render('index', {
   		title: 'Express', 
-  		username : req.cookies.user
+  		user : {
+  			username : req.cookies.user
+  		}
   	});
 });
+
+
 
 function handSendError(err){
 	res.send({
@@ -58,6 +62,13 @@ router.get('/login',checkLogin);
 
 router.get('/login',function(req, res){
 	res.render('login', { title: 'login' });
+});
+
+router.get('/logout',function(req, res){
+	res.clearCookie('token');
+	res.clearCookie('user');
+
+	res.redirect('login');
 });
 
 router.post('/ajaxlogin',function(req, res){
