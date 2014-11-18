@@ -8,6 +8,11 @@ require(['jquery','md5','bootstrap'],function($,md5){
 
 	$('#J_register').on('click',function(){
 
+		if($password.val() !== $passwordRepeat.val()){
+			$('.alert-danger').html('两次输入密码不一致！').show();
+			return;
+		}
+
 		$.ajax({
 			url : 'ajaxreg',
 			type : 'POST',
