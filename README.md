@@ -11,18 +11,18 @@ for developer
 
 ### 安装运行
 
-下载安装工程 
+下载工程 
 ```
 $ git clone git@github.com:qingxiangchayun/asmap.git
 $ cd asmap
 $ npm install
 ```
 
-安装启动mongodb
-安装：<https://www.mongodb.org/>
-启动：`$ ./mongod --dbpath 'db path'`
+安装启动mongodb  
+安装：<https://www.mongodb.org/>  
+启动：`$ ./mongod --dbpath 'db path'`  
 
-运行程序  ` $ npm start `
+运行程序  ` $ npm start `	
 
 
  

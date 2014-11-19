@@ -71,6 +71,23 @@ router.get('/logout',function(req, res){
 	res.redirect('login');
 });
 
+function loginSucCallback(req, res){
+	var md5 = crypto.createHash('md5');
+				
+	var cookie_asLoginToken = md5.update( req.body.username + Date.now() ).digest('hex');
+
+	var expiresTime = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
+
+	res.cookie('token',cookie_asLoginToken, { expires: expiresTime , path : '/' });
+	res.cookie('user',req.body.username, { expires: expiresTime , path : '/' });
+
+	asUserModel.update({username : req.body.username}, { $set : { token : cookie_asLoginToken } },function(err, docs){
+		if(err){
+			handSendError(err);
+		}
+	});
+}
+
 router.post('/ajaxlogin',function(req, res){
 	var reqData = req.body;
 
@@ -80,20 +97,7 @@ router.post('/ajaxlogin',function(req, res){
 		}else{
 			if(docs && docs[0] && docs[0].password === reqData.password){
 				// write cookie
-				var md5 = crypto.createHash('md5');
-				
-				var cookie_asLoginToken = md5.update( reqData.username + Date.now() ).digest('hex');
-
-				var expiresTime = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
-
-				res.cookie('token',cookie_asLoginToken, { expires: expiresTime , path : '/' });
-				res.cookie('user',reqData.username, { expires: expiresTime , path : '/' });
-
-				asUserModel.update({username : reqData.username}, { $set : { token : cookie_asLoginToken } },function(err, docs){
-					if(err){
-						handSendError(err);
-					}
-				});
+				loginSucCallback(req, res);
 
 				res.send({
 					success : true,
@@ -139,6 +143,7 @@ router.post('/ajaxreg',function(req, res){
 					if(err){
 						handSendError(err);
 					}else{
+						loginSucCallback(req, res);
 						res.send({
 							success : true,
 							message : 'ok'
