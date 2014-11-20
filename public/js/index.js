@@ -134,7 +134,16 @@ require(['jquery','bootstrap','jquery.tmpl'],function($){
 		}
 	});
 
-	
+
+	require(['jquery','pagination'],function($){
+		var num_entries = 20;
+		$("#Pagination").pagination(num_entries, {
+			num_edge_entries: 2,
+			num_display_entries: 5,
+			items_per_page:1
+		});
+	});
+
 
 });
 
