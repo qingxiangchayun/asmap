@@ -1,7 +1,7 @@
 asmap
 =====
-for developer
-方便通过url找到jsp path
+To find the jsp path easily for developers
+
 
 ### 技术选型
 * 前端：jQuery、bootstrap、requirejs
