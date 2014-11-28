@@ -231,5 +231,21 @@ router.get('/list/delete',function(req, res){
 	});
 });
 
+router.get('/fe/test',function(req, res){
+	res.render('test',{
+		title : 'fe/test',
+		txt1 : 'txt1',
+		txt2 : '<div style="color:red">txt2</div>',
+		txt3 : '&lt;div style=&quot;color:red&quot;&gt;txt3&lt;/div&gt;'
+	});
+
+	res.send({
+		success : true,
+		txt1 : 'txt1',
+		txt2 : '<div style="color:red">txt2</div>',
+		txt3 : '&lt;div style=&quot;color:red&quot;&gt;txt3&lt;/div&gt;'
+	});
+});
+
 
 module.exports = router;
